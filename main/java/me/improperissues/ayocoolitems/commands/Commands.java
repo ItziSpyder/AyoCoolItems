@@ -95,7 +95,7 @@ public class Commands implements CommandExecutor {
                     @Override
                     public void run() {
                         if (i < UUIDLogs.getLines().size()) {
-                            for (int j = 0; j < 5; j ++) {
+                            for (int j = 0; j < 20; j ++) {
                                 try {
                                     String uuid = UUIDLogs.getLines().get(i);
                                     try {
