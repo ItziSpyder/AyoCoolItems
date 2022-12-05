@@ -1,0 +1,28 @@
+name: AyoCoolItems
+version: '${project.version}'
+main: me.improperissues.ayocoolitems.Main
+api-version: 1.17
+authors: [ ImproperIssues ]
+description: Ayo, cool items! (idk, just felt like adding custom items)
+website: github.com/itzispyder
+commands:
+  giveitem:
+    description: Give yourself custom items!
+    usage: §7/giveitem §8[§eitem§8] §d<amount> §b<player>
+    permission: aci.commands
+    permission-message: §8[§cACI§8] §4You do not have access to this!
+  toggleoutline:
+    description: Block outline cosmetic!
+    usage: §7/toggleoutline
+    permission: aci.commands
+    permission-message: §8[§cACI§8] §4You do not have access to this!
+  killall-uuid:
+    description: Kills all entities (existent or non-existent) through logged uuid!
+    usage: §7/killall-uuid
+    permission: aci.commands
+    permission-message: §8[§cACI§8] §4You do not have access to this!
+  getall-uuid:
+    description: Gets all entities (existent or non-existent) through logged uuid!
+    usage: §7/getall-uuid
+    permission: aci.commands
+    permission-message: §8[§cACI§8] §4You do not have access to this!
