@@ -75,7 +75,7 @@ public class UUIDLogs {
             @Override
             public void run() {
                 if (i < uuids.size()) {
-                    for (int j = 0; j < 5; j ++) {
+                    for (int j = 0; j < 20; j ++) {
                         try {
                             String uuid = uuids.get(i);
                             getServer().dispatchCommand(getServer().getConsoleSender(),"kill " + uuid);
