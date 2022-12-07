@@ -3,6 +3,7 @@ package me.improperissues.ayocoolitems.files;
 import me.improperissues.ayocoolitems.Main;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
@@ -75,14 +76,17 @@ public class UUIDLogs {
             @Override
             public void run() {
                 if (i < uuids.size()) {
-                    for (int j = 0; j < 20; j ++) {
+                    for (int j = 0; j < 100; j ++) {
                         try {
                             String uuid = uuids.get(i);
-                            getServer().dispatchCommand(getServer().getConsoleSender(),"kill " + uuid);
+                            Entity entity = Bukkit.getEntity(UUID.fromString(uuid));
+                            if (entity != null && entity.isDead()) {
+                                getServer().dispatchCommand(getServer().getConsoleSender(),"kill " + entity.getUniqueId());
+                            }
                             removeLine(UUID.fromString(uuid));
                             i ++;
                         } catch (IndexOutOfBoundsException exception) {
-                            // empty
+                            break;
                         }
                     }
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§cClearing " +

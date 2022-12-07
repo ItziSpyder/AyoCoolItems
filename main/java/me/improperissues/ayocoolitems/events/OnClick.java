@@ -37,19 +37,55 @@ public class OnClick implements Listener {
     static Main plugin = Files.plugin;
     static List<UUID> melonized = new ArrayList<>();
     static List<UUID> immortal = new ArrayList<>();
+    static HashMap<String,Long> reaction = new HashMap<>();
     static HashMap<String,Long> clickCool = new HashMap<>();
     static HashMap<String,Material> airplace = new HashMap<>();
     public static List<String> outlineBelow = new ArrayList<>();
+
+
+    public static void reactionGame(Player player) {
+        if (reaction.containsKey(player.getName()) || (clickCool.containsKey(player.getName()) && clickCool.get(player.getName()) > System.currentTimeMillis())) {
+            player.sendMessage("§cYou are already playing this game! Left click to end it!");
+            return;
+        }
+        clickCool.put(player.getName(), System.currentTimeMillis() + (5 * 1000));
+        new BukkitRunnable() {
+            int sec = 0;
+            @Override
+            public void run() {
+                if (sec < 5) {
+                    player.sendTitle("§e§l" + (5 - sec),"§eLeft click §fon §aGo §fto see your reaction result!",0,40,0);
+                    player.playSound(player.getLocation(),Sound.BLOCK_NOTE_BLOCK_PLING,10,1);
+                    sec ++;
+                } else {
+                    player.sendTitle("§aGo!","§eLeft click §fnow!",0,40,0);
+                    player.playSound(player.getLocation(),Sound.BLOCK_NOTE_BLOCK_PLING,10,1.5F);
+                    reaction.put(player.getName(),System.currentTimeMillis());
+                    this.cancel();
+                }
+            }
+        }.runTaskTimer(Files.plugin,0,20);
+    }
 
     @EventHandler
     public static void PlayerInteractEvent(PlayerInteractEvent e) {
         Player p = e.getPlayer();
 
+        if (reaction.containsKey(p.getName())) {
+            double time = Math.floor((System.currentTimeMillis() - reaction.get(p.getName())) / 10) / 100;
+            p.sendTitle("§b§l§oGG!","§bYour reaction time was §e" + time + " §bseconds!",0,40,0);
+            p.playSound(p.getLocation(),Sound.ENTITY_PLAYER_LEVELUP,10,10);
+            Messages.bm("§e" + p.getName() + " §bplayed the reaction game and got a reaction time of §e" + time + " §b! GG! \n" +
+                    "§bResults: §e" + time + " §bseconds, §e" + (System.currentTimeMillis() - reaction.get(p.getName())) +
+                    " §bms! (Ping was §e" + p.getPing() + " §band tps was §e" + Main.tps + "§b)");
+            reaction.remove(p.getName());
+            return;
+        }
+
         try {
             ItemStack item = getClickedItem(p);
             ItemMeta meta = item.getItemMeta();
             String display = meta.getDisplayName();
-
 
             if (!isCustom(item)) {
                 return;
@@ -59,7 +95,7 @@ public class OnClick implements Listener {
                 return;
             }
             clickCool.put(p.getName(),System.currentTimeMillis() + 50);
-            if (!(e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
+            if (e.getAction().equals(Action.LEFT_CLICK_AIR) || e.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
                 if (display.contains(Items.air_place.getItemMeta().getDisplayName())) {
                     openAirPlaceMenu(p);
                 }

@@ -13,6 +13,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,59 @@ import java.util.UUID;
 public class Commands implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        // Console or player commands
+        switch (command.getName().toLowerCase().trim()) {
+            case "velocity":
+                Player target = Bukkit.getPlayer(args[0]);
+                if (target == null && args.length > 1) {
+                    sender.sendMessage("§cThat player is either offline or null!");
+                    return false;
+                }
+                try {
+                    if (args[1].contains("^")) {
+                        Double vel = target.getLocation().getDirection().getX();
+                        try {
+                            int mult = Integer.parseInt(args[1].replaceAll("\\^",""));
+                            args[1] = (mult > 10 ? args[1] : String.valueOf(vel * mult));
+                        } catch (NumberFormatException exception) {
+                            args[1] = String.valueOf(vel);
+                        }
+
+                    }
+                    if (args[2].contains("^")) {
+                        Double vel = target.getLocation().getDirection().getY();
+                        try {
+                            int mult = Integer.parseInt(args[2].replaceAll("\\^",""));
+                            args[2] = (mult > 10 ? args[2] : String.valueOf(vel * mult));
+                        } catch (NumberFormatException exception) {
+                            args[2] = String.valueOf(vel);
+                        }
+                    }
+                    if (args[3].contains("^")) {
+                        Double vel = target.getLocation().getDirection().getZ();
+                        try {
+                            int mult = Integer.parseInt(args[3].replaceAll("\\^",""));
+                            args[3] = (mult > 10 ? args[3] : String.valueOf(vel * mult));
+                        } catch (NumberFormatException exception) {
+                            args[3] = String.valueOf(vel);
+                        }
+                    }
+                    double x = 0;
+                    double y = 0;
+                    double z = 0;
+                    x = Double.parseDouble(args[1]);
+                    y = Double.parseDouble(args[2]);
+                    z = Double.parseDouble(args[3]);
+                    target.setVelocity(new Vector(x,y,z));
+                    sender.sendMessage("§fSet the velocity of player §7" + target.getName() + " §fto [§7" + x + "§f,§7" + y + "§f,§7" + z + "§f]");
+                    return true;
+                } catch (IllegalArgumentException | NullPointerException | IndexOutOfBoundsException exception) {
+                    return false;
+                }
+        }
+
+
+        // Player commands
         if (!(sender instanceof Player)) {
             return false;
         }
@@ -95,7 +149,7 @@ public class Commands implements CommandExecutor {
                     @Override
                     public void run() {
                         if (i < UUIDLogs.getLines().size()) {
-                            for (int j = 0; j < 20; j ++) {
+                            for (int j = 0; j < 100; j ++) {
                                 try {
                                     String uuid = UUIDLogs.getLines().get(i);
                                     try {
@@ -106,18 +160,21 @@ public class Commands implements CommandExecutor {
                                     }
                                     i ++;
                                 } catch (IndexOutOfBoundsException exception) {
-                                    // empty
+                                    break;
                                 }
                             }
                         } else {
                             double timefinished = Math.ceil((System.currentTimeMillis() - timestarted) / 10) / 100;
                             p.sendMessage(Messages.starter + "cCurrent entities are: " +
                                     "§7" + entities.toString() + "\n" + Messages.starter + "cThere are §e" +
-                                    entities.size() + " §centities and §e" + dead + " §cdead entities! Proccess finished in §e" + timefinished + " §cseconds!");
+                                    entities.size() + " §centities and §e" + dead + " §cdead entities! Process finished in §e" + timefinished + " §cseconds!");
                             this.cancel();
                         }
                     }
                 }.runTaskTimer(Files.plugin,0,1);
+                return true;
+            case "reaction":
+                OnClick.reactionGame(p);
                 return true;
         }
 

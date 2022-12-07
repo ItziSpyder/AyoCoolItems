@@ -43,6 +43,9 @@ public class Main extends JavaPlugin {
         getCommand("toggleoutline").setExecutor(new Commands());
         getCommand("killall-uuid").setExecutor(new Commands());
         getCommand("getall-uuid").setExecutor(new Commands());
+        getCommand("velocity").setExecutor(new Commands());
+        getCommand("velocity").setTabCompleter(new Tabs());
+        getCommand("reaction").setExecutor(new Commands());
 
         // Loops
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {

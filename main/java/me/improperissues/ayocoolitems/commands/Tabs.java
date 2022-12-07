@@ -1,5 +1,6 @@
 package me.improperissues.ayocoolitems.commands;
 
+import me.improperissues.ayocoolitems.other.ServerUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -48,6 +49,24 @@ public class Tabs implements TabCompleter {
                         for (Player online : Bukkit.getOnlinePlayers()) {
                             list.add(online.getName());
                         }
+                        break;
+                }
+                break;
+            case "velocity":
+                switch (args.length) {
+                    case 1:
+                        return ServerUtils.getPlayers();
+                    case 2:
+                        list.add("^ ^ ^");
+                        list.add("1 1 1");
+                        break;
+                    case 3:
+                        list.add("^ ^");
+                        list.add("1 1");
+                        break;
+                    case 4:
+                        list.add("^");
+                        list.add("1");
                         break;
                 }
                 break;

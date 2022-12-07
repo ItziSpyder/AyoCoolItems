@@ -26,3 +26,14 @@ commands:
     usage: §7/getall-uuid
     permission: aci.commands
     permission-message: §8[§cACI§8] §4You do not have access to this!
+  velocity:
+    description: Sets the velocity of a player!
+    usage: §7/velocity §b<player> §e<x> <y> <z>
+    permission: aci.commands
+    permission-message: §8[§cACI§8] §4You do not have access to this!
+    aliases:
+      - vel
+      - motion
+  reaction:
+    description: Test your reaction!
+    usage: §7/reaction
