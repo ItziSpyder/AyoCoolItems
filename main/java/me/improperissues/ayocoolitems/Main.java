@@ -8,8 +8,6 @@ import me.improperissues.ayocoolitems.events.ServerEvents;
 import me.improperissues.ayocoolitems.files.Files;
 import me.improperissues.ayocoolitems.files.UUIDLogs;
 import me.improperissues.ayocoolitems.items.Items;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {

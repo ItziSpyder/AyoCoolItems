@@ -4,14 +4,13 @@ import me.improperissues.ayocoolitems.files.UUIDLogs;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.AreaEffectCloud;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Pig;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityPotionEffectEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.entity.*;
 
 public class EntityEvents implements Listener {
 
@@ -19,6 +18,11 @@ public class EntityEvents implements Listener {
     public static void EntitySpawnEvent(EntitySpawnEvent e) {
         Entity entity = e.getEntity();
         UUIDLogs.addLine(entity);
+    }
+
+    @EventHandler
+    public static void EntityDeathEvent(EntityDeathEvent e) {
+
     }
 
     @EventHandler
@@ -31,6 +35,25 @@ public class EntityEvents implements Listener {
     public static void EntityPotionEffectEvent(EntityPotionEffectEvent e) {
         Entity entity = e.getEntity();
         if (OnClick.isImmortal(entity)) e.setCancelled(true);
+    }
+
+    @EventHandler
+    public static void PotionSplashEvent(PotionSplashEvent e) {
+        Entity entity = e.getEntity();
+        for (Entity affected : e.getAffectedEntities()) {
+            if (OnClick.isImmortal(affected)) e.setCancelled(true);
+            return;
+        }
+    }
+
+    @EventHandler
+    public static void LingeringPotionSplashEvent(LingeringPotionSplashEvent e) {
+        Entity entity = e.getEntity();
+        AreaEffectCloud a = e.getAreaEffectCloud();
+        for (Entity affected : a.getNearbyEntities(a.getRadius(),0.5,a.getRadius())) {
+            if (OnClick.isImmortal(affected)) e.setCancelled(true);
+            return;
+        }
     }
 
     @EventHandler

@@ -5,9 +5,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.server.ServerCommandEvent;
-import org.bukkit.event.server.ServerEvent;
-
-import static org.bukkit.Bukkit.getServer;
 
 public class ServerEvents implements Listener {
 
