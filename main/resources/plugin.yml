@@ -16,6 +16,11 @@ commands:
     usage: §7/toggleoutline
     permission: aci.commands
     permission-message: §8[§cACI§8] §4You do not have access to this!
+  togglevectorhighlight:
+    description: Vector highlight cosmetic!
+    usage: §7/togglevectorhighlight
+    permission: aci.commands
+    permission-message: §8[§cACI§8] §4You do not have access to this!
   killall-uuid:
     description: Kills all entities (existent or non-existent) through logged uuid!
     usage: §7/killall-uuid

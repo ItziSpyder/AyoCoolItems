@@ -32,6 +32,7 @@ public class Items {
         setAnime_sword();
         setFalling_wand();
         setImmortality();
+        setTNTCrystal();
     }
 
     public static ItemStack getItem(String string) {
@@ -72,6 +73,8 @@ public class Items {
                 return falling_wand;
             case "immortality":
                 return immortality;
+            case "tntcrystal":
+                return TNTCrystal;
         }
         return null;
     }
@@ -99,8 +102,25 @@ public class Items {
     public static ItemStack anime_sword;
     public static ItemStack falling_wand;
     public static ItemStack immortality;
+    public static ItemStack TNTCrystal;
 
 
+    static void setTNTCrystal () {
+        ItemStack item = new ItemStack(Material.RED_DYE);
+        ItemMeta meta = item.getItemMeta();
+
+        meta.setDisplayName("§7§l<§dTNT Crystal§7§l>");
+        meta.setLore(new ArrayList<>(Arrays.asList(
+                "§7Works the same way a",
+                "§7normal crystal would!",
+                "",
+                "§8§o#ayocoolitems"
+        )));
+        meta.addEnchant(Enchantment.LUCK,1,false);
+
+        item.setItemMeta(addItemFlags(meta));
+        TNTCrystal = item;
+    }
     static void setImmortality() {
         ItemStack item = new ItemStack(Material.TOTEM_OF_UNDYING);
         ItemMeta meta = item.getItemMeta();
@@ -360,6 +380,8 @@ public class Items {
         meta.setLore(new ArrayList<>(Arrays.asList(
                 "§7Right click to place a ",
                 "§7block in the air",
+                "§7Left click to open the block  ",
+                "§7selection menu",
                 "",
                 "§8§o#ayocoolitems"
         )));

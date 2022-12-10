@@ -98,12 +98,12 @@ public class Displays {
     public static void draw(Location location1, Location location2, Color color) {
         Vector dir = location2.toVector().subtract(location1.toVector()).normalize();
         if (location1.getWorld() == location2.getWorld()) {
-            for (double distance = 0; distance < 400; distance += 0.05) {
+            for (double distance = 0; distance < 400; distance += 0.1) {
                 double x = dir.getX() * distance;
                 double y = dir.getY() * distance;
                 double z = dir.getZ() * distance;
                 Location newLoc = new Location(location1.getWorld(),location1.getX() + x,location1.getY() + y,location1.getZ() + z);
-                Particle.DustOptions dust = new Particle.DustOptions(color,0.2F);
+                Particle.DustOptions dust = new Particle.DustOptions(color,0.3F);
                 newLoc.getWorld().spawnParticle(Particle.REDSTONE,newLoc,3,0,0,0,0,dust);
                 if (newLoc.distanceSquared(location2) < 0.001) {
                     break;

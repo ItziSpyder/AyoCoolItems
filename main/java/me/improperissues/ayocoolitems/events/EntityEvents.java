@@ -7,6 +7,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.AreaEffectCloud;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Pig;
+import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -29,6 +30,12 @@ public class EntityEvents implements Listener {
     public static void EntityDamageEvent(EntityDamageEvent e) {
         Entity entity = e.getEntity();
         if (OnClick.isImmortal(entity)) e.setCancelled(true);
+        if (entity.getScoreboardTags().contains("§cTNT_CRYSTAL")) {
+            e.setCancelled(true);
+            entity.getWorld().createExplosion(entity.getLocation(),5,false,true,entity);
+            entity.getWorld().spawn(entity.getLocation(), TNTPrimed.class);
+            entity.remove();
+        }
     }
 
     @EventHandler

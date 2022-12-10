@@ -38,7 +38,8 @@ public class Tabs implements TabCompleter {
                                 "tazer",
                                 "anime_sword",
                                 "falling_wand",
-                                "immortality"
+                                "immortality",
+                                "tntcrystal"
                                 ));
                     case 2:
                         for (int i = 0; i < 10; i ++) {

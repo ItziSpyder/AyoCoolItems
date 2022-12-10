@@ -41,6 +41,7 @@ public class OnClick implements Listener {
     static HashMap<String,Long> clickCool = new HashMap<>();
     static HashMap<String,Material> airplace = new HashMap<>();
     public static List<String> outlineBelow = new ArrayList<>();
+    public static List<String> highlightVector = new ArrayList<>();
 
 
     public static void reactionGame(Player player) {
@@ -272,6 +273,25 @@ public class OnClick implements Listener {
                     immortal.add(p.getUniqueId());
                     p.playSound(p.getLocation(), Sound.ITEM_TOTEM_USE,10,0.1F);
                     p.sendTitle("","§6§l§oYou have been granted immortality!",10,40,10);
+                }
+            } else if (display.contains(Items.TNTCrystal.getItemMeta().getDisplayName())) {
+                clickCool.put(p.getName(),System.currentTimeMillis() + 500);
+
+                if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+                    Block block = e.getClickedBlock();
+                    String name = block.getType().name();
+                    if (name.contains("OBSIDIAN") || name.contains("BEDROCK")) {
+                        Location spawn = block.getLocation().clone().add(0.5,1,0.5);
+                        for (Entity nearby : spawn.getWorld().getNearbyEntities(spawn,1,1,1)) {
+                            if (nearby.getScoreboardTags().contains("§cTNT_CRYSTAL") && nearby != null && nearby.getWorld() == spawn.getWorld() && nearby.getLocation().distanceSquared(spawn) < 1) {
+                                return;
+                            }
+                        }
+                        if (!p.getGameMode().equals(GameMode.CREATIVE)) {
+                            deductStack(p);
+                        }
+                        CustomArmorStands.tntCrystal(spawn);
+                    }
                 }
             }
         } catch (NullPointerException exception) {
@@ -510,7 +530,11 @@ public class OnClick implements Listener {
     public static void registerEvents() {
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (outlineBelow.contains(p.getName())) {
-                Displays.outline(p.getLocation().add(0,-1,0));
+                if (p.isOnGround()) Displays.outline(p.getLocation().add(0,-1,0));
+            }
+            if (highlightVector.contains(p.getName())) {
+                Displays.draw(p.getEyeLocation(),Vectors.getEyeTargetVector(p,4.5),Color.BLUE);
+                Displays.outline(Vectors.getEyeTargetVector(p,4.5));
             }
             try {
                 ItemStack item = getClickedItem(p);

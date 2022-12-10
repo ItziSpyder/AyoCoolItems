@@ -8,6 +8,7 @@ import me.improperissues.ayocoolitems.events.ServerEvents;
 import me.improperissues.ayocoolitems.files.Files;
 import me.improperissues.ayocoolitems.files.UUIDLogs;
 import me.improperissues.ayocoolitems.items.Items;
+import me.improperissues.ayocoolitems.other.ServerUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
@@ -39,6 +40,7 @@ public class Main extends JavaPlugin {
         getCommand("giveitem").setExecutor(new Commands());
         getCommand("giveitem").setTabCompleter(new Tabs());
         getCommand("toggleoutline").setExecutor(new Commands());
+        getCommand("togglevectorhighlight").setExecutor(new Commands());
         getCommand("killall-uuid").setExecutor(new Commands());
         getCommand("getall-uuid").setExecutor(new Commands());
         getCommand("velocity").setExecutor(new Commands());
@@ -73,6 +75,9 @@ public class Main extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
         getServer().getLogger().info("Cool items disabled!");
+
+        // Entities
+        ServerUtils.killallTags("§cTNT_CRYSTAL");
 
         // Files
         UUIDLogs.save();

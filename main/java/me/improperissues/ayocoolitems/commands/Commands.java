@@ -136,6 +136,15 @@ public class Commands implements CommandExecutor {
                     sender.sendMessage(Messages.starter + "aYou will now outline the block under you");
                 }
                 return true;
+            case "togglevectorhighlight":
+                if (OnClick.highlightVector.contains(sender.getName())) {
+                    OnClick.highlightVector.remove(sender.getName());
+                    sender.sendMessage(Messages.starter + "cYou will no longer highlight your look vector!");
+                } else {
+                    OnClick.highlightVector.add(sender.getName());
+                    sender.sendMessage(Messages.starter + "aYou will now highlight your look vector!");
+                }
+                return true;
             case "killall-uuid":
                 UUIDLogs.clearLog(p);
                 return true;

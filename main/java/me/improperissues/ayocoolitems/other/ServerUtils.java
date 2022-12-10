@@ -1,6 +1,8 @@
 package me.improperissues.ayocoolitems.other;
 
 import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -22,5 +24,13 @@ public class ServerUtils {
             if (p.isOp()) players.add(p.getName());
         }
         return players;
+    }
+
+    public static void killallTags(String scoreboardTag) {
+        for (World world : Bukkit.getServer().getWorlds()) {
+            for (Entity entity : world.getEntities()) {
+                if (entity.getScoreboardTags().contains(scoreboardTag)) entity.remove();
+            }
+        }
     }
 }
