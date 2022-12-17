@@ -21,6 +21,7 @@ public class EntityEvents implements Listener {
         UUIDLogs.addLine(entity);
     }
 
+
     @EventHandler
     public static void EntityDeathEvent(EntityDeathEvent e) {
 
@@ -97,6 +98,15 @@ public class EntityEvents implements Listener {
                 pig.setGlowing(true);
                 return;
             }
+        }
+    }
+
+    @EventHandler
+    public static void ItemMergeEvent(ItemMergeEvent e) {
+        Entity entity = e.getEntity();
+        Entity target = e.getTarget();
+        if (entity.getScoreboardTags().contains("§8ayocoolitems:cannot_merge") || target.getScoreboardTags().contains("§8ayocoolitems:cannot_merge")) {
+            e.setCancelled(true);
         }
     }
 }

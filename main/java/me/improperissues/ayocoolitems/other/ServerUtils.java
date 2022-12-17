@@ -33,4 +33,11 @@ public class ServerUtils {
             }
         }
     }
+
+    public static double ranNum(double max, boolean allowNegative) {
+        double ran = Math.ceil(Math.random() * max);
+        int neg = (int) Math.ceil(Math.random() * 2);
+        if (neg == 2) ran *= -1;
+        return ran;
+    }
 }

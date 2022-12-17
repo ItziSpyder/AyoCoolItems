@@ -1,6 +1,7 @@
 package me.improperissues.ayocoolitems.events;
 
 import me.improperissues.ayocoolitems.Main;
+import me.improperissues.ayocoolitems.entity.CustomTNT;
 import me.improperissues.ayocoolitems.files.Files;
 import me.improperissues.ayocoolitems.items.Items;
 import me.improperissues.ayocoolitems.other.*;
@@ -36,7 +37,7 @@ public class OnClick implements Listener {
 
     static Main plugin = Files.plugin;
     static List<UUID> melonized = new ArrayList<>();
-    static List<UUID> immortal = new ArrayList<>();
+    public static List<UUID> immortal = new ArrayList<>();
     static HashMap<String,Long> reaction = new HashMap<>();
     static HashMap<String,Long> clickCool = new HashMap<>();
     static HashMap<String,Material> airplace = new HashMap<>();
@@ -292,6 +293,16 @@ public class OnClick implements Listener {
                         }
                         CustomArmorStands.tntCrystal(spawn);
                     }
+                }
+            } else if (display.contains(Items.flintAndSteel.getItemMeta().getDisplayName())) {
+                clickCool.put(p.getName(),System.currentTimeMillis() + 500);
+
+                if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+                    Block block = e.getClickedBlock();
+                    CustomTNT.spawnNew(block,p);
+                    block.setType(Material.AIR);
+                        p.playSound(p.getLocation(),Sound.ITEM_FLINTANDSTEEL_USE,1,1);
+                    p.playSound(p.getLocation(),Sound.ENTITY_TNT_PRIMED,1,1);
                 }
             }
         } catch (NullPointerException exception) {

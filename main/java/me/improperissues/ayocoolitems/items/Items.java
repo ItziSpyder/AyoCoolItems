@@ -33,6 +33,7 @@ public class Items {
         setFalling_wand();
         setImmortality();
         setTNTCrystal();
+        setFlintAndSteel();
     }
 
     public static ItemStack getItem(String string) {
@@ -75,6 +76,8 @@ public class Items {
                 return immortality;
             case "tntcrystal":
                 return TNTCrystal;
+            case "flintandsteal":
+                return flintAndSteel;
         }
         return null;
     }
@@ -103,8 +106,24 @@ public class Items {
     public static ItemStack falling_wand;
     public static ItemStack immortality;
     public static ItemStack TNTCrystal;
+    public static ItemStack flintAndSteel;
 
 
+    static void setFlintAndSteel () {
+        ItemStack item = new ItemStack(Material.FLINT_AND_STEEL);
+        ItemMeta meta = item.getItemMeta();
+
+        meta.setDisplayName("§7§l<§7§lFlint N Steel§7§l>");
+        meta.setLore(new ArrayList<>(Arrays.asList(
+                "§7Everything = TNT?",
+                "",
+                "§8§o#ayocoolitems"
+        )));
+        meta.addEnchant(Enchantment.LUCK,1,false);
+
+        item.setItemMeta(addItemFlags(meta));
+        flintAndSteel = item;
+    }
     static void setTNTCrystal () {
         ItemStack item = new ItemStack(Material.RED_DYE);
         ItemMeta meta = item.getItemMeta();
