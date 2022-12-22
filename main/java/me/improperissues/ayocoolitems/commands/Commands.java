@@ -176,6 +176,9 @@ public class Commands implements CommandExecutor {
                     p.addScoreboardTag("§8RGB_DISPLAY");
                     p.sendMessage(Messages.starter + "dAdded rgb display to your name!");
                     return true;
+                case "spawn":
+                    p.chat("/warp spawn");
+                    return true;
             }
         } catch (Exception exception) {
             p.sendMessage(Messages.starter + "4An error has occurred: §e" + exception);

@@ -48,11 +48,18 @@ commands:
   addwarp:
     description: Saves a new warp
     usage: §7/addwarp §b<name>
+    permission: aci.commands
+    permission-message: §8[§cACI§8] §4You do not have access to this!
   delwarp:
     description: Deletes a warp
     usage: §7/delwarp §b<name>
+    permission: aci.commands
+    permission-message: §8[§cACI§8] §4You do not have access to this!
   rgb-display:
     description: RGB Display!
     usage: §7/rgb-display
     permission: aci.commands
     permission-message: §8[§cACI§8] §4You do not have access to this!
+  spawn:
+    description: TP to spawn
+    usage: §7/spawn

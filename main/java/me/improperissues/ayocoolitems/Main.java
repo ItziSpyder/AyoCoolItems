@@ -62,6 +62,7 @@ public class Main extends JavaPlugin {
         getCommand("warp").setExecutor(new Commands());
         getCommand("warp").setTabCompleter(new Tabs());
         getCommand("rgb-display").setExecutor(new Commands());
+        getCommand("spawn").setExecutor(new Commands());
 
         // Loops
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
