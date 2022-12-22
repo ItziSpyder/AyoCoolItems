@@ -7,8 +7,11 @@ import me.improperissues.ayocoolitems.events.OnClick;
 import me.improperissues.ayocoolitems.events.ServerEvents;
 import me.improperissues.ayocoolitems.files.Files;
 import me.improperissues.ayocoolitems.files.UUIDLogs;
-import me.improperissues.ayocoolitems.items.Items;
+import me.improperissues.ayocoolitems.files.Warps;
+import me.improperissues.ayocoolitems.items.CustomItems;
 import me.improperissues.ayocoolitems.other.ServerUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
@@ -20,21 +23,24 @@ public class Main extends JavaPlugin {
         // Plugin startup logic
         getServer().getLogger().info("Cool items loaded!");
 
-        // Files
-        getConfig().options().copyDefaults(true);
-        saveDefaultConfig();
-        UUIDLogs.setup();
-        UUIDLogs.get().options().copyDefaults(true);
-        UUIDLogs.save();
-
         // Events
         getServer().getPluginManager().registerEvents(new Files(this),this);
         getServer().getPluginManager().registerEvents(new OnClick(),this);
         getServer().getPluginManager().registerEvents(new EntityEvents(),this);
         getServer().getPluginManager().registerEvents(new ServerEvents(),this);
 
+        // Files
+        getConfig().options().copyDefaults(true);
+        saveDefaultConfig();
+        UUIDLogs.setup();
+        UUIDLogs.get().options().copyDefaults(true);
+        UUIDLogs.save();
+        Warps.setup();
+        Warps.get().options().copyDefaults(true);
+        Warps.save();
+
         // Items
-        Items.registerItems();
+        CustomItems.registerItems();
 
         // Commands
         getCommand("giveitem").setExecutor(new Commands());
@@ -46,6 +52,12 @@ public class Main extends JavaPlugin {
         getCommand("velocity").setExecutor(new Commands());
         getCommand("velocity").setTabCompleter(new Tabs());
         getCommand("reaction").setExecutor(new Commands());
+        getCommand("delwarp").setExecutor(new Commands());
+        getCommand("delwarp").setTabCompleter(new Tabs());
+        getCommand("addwarp").setExecutor(new Commands());
+        getCommand("addwarp").setTabCompleter(new Tabs());
+        getCommand("warp").setExecutor(new Commands());
+        getCommand("warp").setTabCompleter(new Tabs());
 
         // Loops
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
@@ -73,13 +85,15 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
-        getServer().getLogger().info("Cool items disabled!");
-
         // Entities
         ServerUtils.killallTags("§cTNT_CRYSTAL");
-
         // Files
         UUIDLogs.save();
+        // Plugin shutdown logic
+        getServer().getLogger().info("Cool items disabled!");
+    }
+
+    public static Plugin getInstance() {
+        return Bukkit.getServer().getPluginManager().getPlugin("AyoCoolItems");
     }
 }

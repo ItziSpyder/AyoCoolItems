@@ -42,3 +42,12 @@ commands:
   reaction:
     description: Test your reaction!
     usage: §7/reaction
+  warp:
+    description: Warps to a location
+    usage: §7/warp
+  addwarp:
+    description: Saves a new warp
+    usage: §7/addwarp §b<name>
+  delwarp:
+    description: Deletes a warp
+    usage: §7/delwarp §b<name>

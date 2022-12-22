@@ -1,6 +1,7 @@
 package me.improperissues.ayocoolitems.events;
 
 import me.improperissues.ayocoolitems.files.UUIDLogs;
+import me.improperissues.ayocoolitems.items.functions.Immortality;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -30,7 +31,7 @@ public class EntityEvents implements Listener {
     @EventHandler
     public static void EntityDamageEvent(EntityDamageEvent e) {
         Entity entity = e.getEntity();
-        if (OnClick.isImmortal(entity)) e.setCancelled(true);
+        if (Immortality.isImmortal(entity)) e.setCancelled(true);
         if (entity.getScoreboardTags().contains("§cTNT_CRYSTAL")) {
             e.setCancelled(true);
             entity.getWorld().createExplosion(entity.getLocation(),5,false,true,entity);
@@ -42,14 +43,14 @@ public class EntityEvents implements Listener {
     @EventHandler
     public static void EntityPotionEffectEvent(EntityPotionEffectEvent e) {
         Entity entity = e.getEntity();
-        if (OnClick.isImmortal(entity)) e.setCancelled(true);
+        if (Immortality.isImmortal(entity)) e.setCancelled(true);
     }
 
     @EventHandler
     public static void PotionSplashEvent(PotionSplashEvent e) {
         Entity entity = e.getEntity();
         for (Entity affected : e.getAffectedEntities()) {
-            if (OnClick.isImmortal(affected)) e.setCancelled(true);
+            if (Immortality.isImmortal(affected)) e.setCancelled(true);
             return;
         }
     }
@@ -59,7 +60,7 @@ public class EntityEvents implements Listener {
         Entity entity = e.getEntity();
         AreaEffectCloud a = e.getAreaEffectCloud();
         for (Entity affected : a.getNearbyEntities(a.getRadius(),0.5,a.getRadius())) {
-            if (OnClick.isImmortal(affected)) e.setCancelled(true);
+            if (Immortality.isImmortal(affected)) e.setCancelled(true);
             return;
         }
     }

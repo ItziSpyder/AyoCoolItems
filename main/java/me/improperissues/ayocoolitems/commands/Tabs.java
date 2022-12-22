@@ -1,5 +1,6 @@
 package me.improperissues.ayocoolitems.commands;
 
+import me.improperissues.ayocoolitems.files.Warps;
 import me.improperissues.ayocoolitems.other.ServerUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -71,6 +72,12 @@ public class Tabs implements TabCompleter {
                         list.add("1");
                         break;
                 }
+                break;
+            case "delwarp":
+            case "warp":
+                return Warps.listWarps();
+            case "addwarp":
+                list.add("§8<name: string>");
                 break;
         }
 
