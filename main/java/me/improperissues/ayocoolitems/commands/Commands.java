@@ -164,6 +164,18 @@ public class Commands implements CommandExecutor {
                     p.teleport(loc);
                     p.sendMessage(Messages.starter + "§dWarped you to " + args[0].toLowerCase());
                     return true;
+                case "rgb-display":
+                    if (p.getScoreboardTags().contains("§8RGB_DISPLAY")) {
+                        p.removeScoreboardTag("§8RGB_DISPLAY");
+                        p.sendMessage(Messages.starter + "dRemoved your rgb display!");
+                        p.setPlayerListName(p.getName());
+                        p.setDisplayName(p.getName());
+                        p.setCustomName(p.getName());
+                        return true;
+                    }
+                    p.addScoreboardTag("§8RGB_DISPLAY");
+                    p.sendMessage(Messages.starter + "dAdded rgb display to your name!");
+                    return true;
             }
         } catch (Exception exception) {
             p.sendMessage(Messages.starter + "4An error has occurred: §e" + exception);
